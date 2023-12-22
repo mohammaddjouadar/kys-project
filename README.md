@@ -1,4 +1,4 @@
-PPP - Projet Python Pyramid
+# PPP - Projet Python Pyramid
 
 Le projet PPP est un site web developpé en Python via l'outil Pyramid.
 
@@ -13,10 +13,8 @@ il sert donc de terrain d'entrainement pour les débutant en Pentesting.
 		env/bin/pserve development.ini
 
 
-_______________________
-					   |
-   Fil de l'eau		   |
-_______________________|
+
+## Fil de l'eau		  
 
 La réalisation du projet fut à la fois sympa et périlleuse, en effet l'équipe n'est pas spécialisée en python,
 Ni même en développement...
