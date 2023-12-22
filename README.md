@@ -30,4 +30,5 @@ réaliser le site en même temps que le professeur from scratch,
 soit, que le prof nous fournit un template du site web, puis que chacun mette en place ses propres features.
 Cela permettra d'être plus productif, et également, 
 En conclusion, le projet fut très intéressant, et nous recommandons de continuer sur ce type de cours.
-//petite pensée aux nombreuses anecdotes du professeur. 
+
+**petite pensée aux nombreuses anecdotes du professeur.**
