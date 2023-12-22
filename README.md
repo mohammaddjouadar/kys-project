@@ -1,4 +1,6 @@
 # PPP - Projet Python Pyramid
+# Bello Bito
+# K.Y.S
 
 Le projet PPP est un site web developpé en Python via l'outil Pyramid.
 
