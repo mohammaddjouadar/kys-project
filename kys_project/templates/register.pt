@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #000;
+            color: #fff;
+            text-align: center;
+            padding: 1em;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+        }
+
+        .form-container {
+            text-align: center;
+            background-color: #f0f0f0;
+            padding: 2em;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            margin-top: 1em;
+        }
+
+        #login-link {
+            margin-top: 1em;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<?php
+    session_start();
+
+    // Function to save form data to CSV
+    function saveToCSV($email, $password) {
+        $file = '/home/kys-master/kys_project/kys_project/hehe/u_register.csv';
+
+        // Check if the file exists, if not, create it and add header
+        if (!file_exists($file)) {
+            file_put_contents($file, "Email,Password\n");
+        }
+
+        // Append the form data to the CSV file
+        $success = file_put_contents($file, "$email,$password\n", FILE_APPEND);
+
+        return $success !== false;
+    }
+
+    // Vérifiez si le formulaire d'inscription a été soumis
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["register"])) {
+        // Placez ici votre logique de traitement du formulaire d'inscription
+        $newEmail = $_POST["new-email"];
+        $newPassword = $_POST["new-password"];
+
+        // Ajoutez ici la logique d'enregistrement (par exemple, avec le fichier users.txt)
+
+        // Si l'enregistrement est réussi, vous pouvez rediriger l'utilisateur vers la page principale ou une page de connexion
+        if (saveToCSV($newEmail, $newPassword)) {
+            header("Location: /login");
+            exit();
+        } else {
+            die('Error writing to CSV file');
+        }
+    }
+?>
+
+
+    <header>
+        <h1>Register</h1>
+    </header>
+
+    <main>
+        <div class="form-container" id="register-form">
+            <form action="" method="post">
+                <label for="new-email">New Email:</label>
+                <input type="email" id="new-email" name="new-email" required><br>
+
+                <label for="new-password">New Password:</label>
+                <input type="password" id="new-password" name="new-password" required><br>
+
+                <button type="submit" name="register">Register</button>
+            </form>
+
+            <a href="${request.route_url('login')}" id="login-link">Already have an account? Login here.</a>
+        </div>
+    </main>
+
+</body>
+</html>

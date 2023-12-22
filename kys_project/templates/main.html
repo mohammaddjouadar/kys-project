@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Commentaires</title>
+</head>
+<body>
+
+    <h1>Livre d'or</h1>
+
+    <!-- Formulaire de commentaire -->
+    <form id="commentForm">
+        <label for="comment">Laissez un commentaire :</label><br>
+        <textarea id="comment" name="comment" rows="4" cols="50"></textarea><br>
+        <button type="button" onclick="submitComment()">Envoyer</button>
+    </form>
+
+    <!-- Zone d'affichage des commentaires -->
+    <div id="commentSection">
+        <h2>Commentaires :</h2>
+        <ul id="commentList"></ul>
+    </div>
+
+    <script>
+        // Fonction pour soumettre le commentaire
+        function submitComment() {
+            // Récupérer le commentaire depuis le champ de texte
+            var commentText = document.getElementById("comment").value;
+
+            // Créer un nouvel élément de liste pour le commentaire
+            var commentNode = document.createElement("li");
+            var textNode = document.createTextNode(commentText);
+            commentNode.appendChild(textNode);
+
+            // Ajouter le commentaire à la liste des commentaires
+            document.getElementById("commentList").appendChild(commentNode);
+
+            // Sauvegarder le commentaire dans un fichier texte (côté client, pas sécurisé)
+            var fileSystem = new ActiveXObject("Scripting.FileSystemObject");
+            var file = fileSystem.OpenTextFile("comments.txt", 8, true);
+            file.WriteLine(commentText);
+            file.Close();
+
+            // Effacer le champ de texte après l'envoi du commentaire
+            document.getElementById("comment").value = "";
+        }
+    </script>
+
+</body>
+</html>

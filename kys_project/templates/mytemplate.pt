@@ -1,0 +1,11 @@
+Wo0fIdBBSCLE91mtDsAz<div metal:use-macro="load: layout.pt">
+    <div metal:fill-slot="content">
+
+        <div class="content">
+            <h1><span class="font-semi-bold">Bello Bito</span> <span class="smaller"> Hit the road jack </span></h1>
+            <p class="lead" tal:content="mon_super_content">Welcome to <span class="font-normal">BBC Project</span>, a&nbsp;Pyramid
+                application generated&nbsp;by<br><span class="font-normal">Cookiecutter</span>.</p>
+        </div>
+
+    </div>
+</div>
